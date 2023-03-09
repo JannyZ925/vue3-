@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let person = {
+            name: '盛大傻',
+            age: 3
+        }
+
+        /* let p = new Proxy(person, {
+            // 读取p的某个属性时调用
+            get(target, propertyName) {
+                console.log(target)
+                console.log(`有人读取了p的${propertyName}属性！`);
+                return target[propertyName]
+            },
+            // 修改或添加p的某个属性时调用
+            set(target, propertyName, value) {
+                console.log(`有人修改了p的${propertyName}属性，我要去修改页面了！`);
+                target[propertyName] = value
+            },
+            // 删除p的某个属性时调用
+            deleteProperty(target, propertyName) {
+                console.log(`有人删除了p的${propertyName}属性，我要去修改页面了！`);
+                return delete target[propertyName]
+            }
+        }) */
+
+        let p = new Proxy(person, {
+            // 读取p的某个属性时调用
+            get(target, propertyName) {
+                console.log(`有人读取了p的${propertyName}属性！`);
+                return Reflect.get(target, propertyName);
+            },
+            // 修改或添加p的某个属性时调用
+            set(target, propertyName, value) {
+                console.log(`有人修改了p的${propertyName}属性，我要去修改页面了！`);
+                Reflect.set(target, propertyName, value)
+            },
+            // 删除p的某个属性时调用
+            deleteProperty(target, propertyName) {
+                console.log(`有人删除了p的${propertyName}属性，我要去修改页面了！`);
+                return Reflect.deleteProperty(target, propertyName)
+            }
+        })
+    </script>
+</body>
+</html>
